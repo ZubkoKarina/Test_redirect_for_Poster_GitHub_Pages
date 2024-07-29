@@ -57,9 +57,32 @@
             background-color: #0056b3;
         }
     </style>
+    <script>
+        function saveSettings(event) {
+            event.preventDefault();
+            var terminalId = document.getElementById('terminal_id').value;
+            var deviceId = document.getElementById('device_id').value;
+            var merchantId = document.getElementById('merchant_id').value;
+            var login = document.getElementById('login').value;
+
+            if (terminalId && deviceId && merchantId && login) {
+                var data = {
+                    terminalId: terminalId,
+                    deviceId: deviceId,
+                    merchantId: merchantId,
+                    login: login
+                };
+
+                // Передача данных в Android-приложение
+                Android.saveSettings(JSON.stringify(data));
+            } else {
+                alert('Please fill in all fields');
+            }
+        }
+    </script>
 </head>
 <body>
-    <form>
+    <form onsubmit="saveSettings(event)">
         <label for="terminal_id">Terminal ID:</label>
         <input type="text" id="terminal_id" name="terminal_id">
 
